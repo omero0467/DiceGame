@@ -1,0 +1,23 @@
+.playerCard{
+    background-color: grey;
+    height: 80vh;
+    width: 35%;
+    margin:  5rem 0;
+    justify-content: space-between;
+}
+
+.playerFooter{
+    margin-bottom: 2rem;
+    background-color: rgba(9,9,121,1);
+    padding: 15px 25px;
+    border-radius: .4rem;
+    color: white;
+}
+
+.default{
+ background-color: rgba(207, 207, 207, 0.539);
+}
+.active{
+ background-color: rgba(255, 255, 255, 0.537);
+}
+
