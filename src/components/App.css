@@ -8,6 +8,10 @@ html{
 .App {
   text-align: center;
 }
+body{
+  background: linear-gradient(90deg, rgba(5,1,79,1) 0%, rgba(9,9,121,1) 11%, rgba(0,212,255,1) 100%);
+  
+}
 .flex-column{
   display: flex;
   flex-direction: column;
@@ -21,18 +25,29 @@ html{
   justify-content: center;
 }
 
-body{
-  background: linear-gradient(90deg, rgba(5,1,79,1) 0%, rgba(9,9,121,1) 11%, rgba(0,212,255,1) 100%);
-  
-}
 
 .overlay{
   background: linear-gradient(180deg, rgba(56,21,144,1) 0%, rgba(17,17,17,1) 100%);
   color: white;
 }
 
+.message {
+  width: 100%;
+  min-height: 100vh;
+  position: absolute;
+  /* flex-direction: column; */
+  left: 0;
+  z-index: 10;
+}
 
 .nonVisible{
   visibility: hidden;
 }
 
+.hidden{
+  display: none;
+}
+
+.normal{
+display: initial;
+}

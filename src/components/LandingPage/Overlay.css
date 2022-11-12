@@ -10,7 +10,14 @@
     margin: .2rem 0;
     cursor: pointer;
 }
+.btn:active{
+     animation: click .5s ease-in-out 0.1s 
+ }
 
+ @keyframes click {
+
+
+ }
 
 .overlay{
     position: absolute;

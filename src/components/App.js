@@ -3,9 +3,8 @@ import "./App.css";
 import Overlay from "./LandingPage/Overlay";
 import Player1 from "./playerCard/Player1";
 import Player2 from "./playerCard/Player2";
-import CenterInterAction, {
-  diceArr,
-} from "./CenterInterAction/CenterInterAction";
+import CenterInterAction, {diceArr,} from "./CenterInterAction/CenterInterAction";
+import WinMessage from "./WinMessage/WinMessage";
 
 function App() {
   const [currentPlayer, setCurrentPlayer] = React.useState("player1");
@@ -14,14 +13,14 @@ function App() {
   const [p2ColorClass, setp2Class] = React.useState('default')
   const [dice, setDice] = React.useState([0,0]);
   const [target, setTarget] = React.useState('')
+  const [winScreen, setWinScreen] = React.useState(false)
+  const [winner, setWinner] = React.useState(['','hidden'])
   const [currentScore, setCurrentScore] = React.useState({
     player1: 0,
     bank1:0,
     player2: 0,
     bank2:0,
   });
-
-  console.log(target);
 
   function NewGame (){
     setCurrentScore((prev)=> ({
@@ -33,6 +32,7 @@ function App() {
     setCurrentPlayer('player1')
     setp1Class('active')
     setp2Class('default')
+    overLay.current.classList.toggle('nonVisible')
   }
 
 
@@ -45,23 +45,49 @@ function App() {
     } else {
       setp1Class((prev)=>prev='active')
       setp2Class((prev)=>prev='default')
-      setCurrentPlayer((prev) => (prev = "player1"))};
+      setCurrentPlayer((prev) => (prev = "player1"))
       setCurrentScore((prev)=>({...prev,bank2:prev.bank2+prev.player2,player2:0}))
-      checkForWin()
+    };
+    checkForWin()
+  }
+  function checkForWin(){
+    if (currentScore.bank1===target){
+      console.log('player1 won');
+      setWinScreen((prev)=>!prev)
+      setWinner(['PLAYER 1','normal'])
+    }else if (currentScore.bank2===target){
+      console.log('player2 Won')
+      setWinScreen((prev)=>!prev)
+      setWinner(['PLAYER 2','normal'])
+    }
+    else if (currentScore.bank1>target){
+      console.log('player2 Won')
+      setWinScreen((prev)=>!prev)
+      setWinner(['PLAYER 2','normal'])
+    }else if (currentScore.bank2>target){
+      console.log('player1 won');
+      setWinScreen((prev)=>!prev)
+      setWinner(['PLAYER 1','normal'])
+    }
   }
 
-  function checkForWin(){
-    if(currentScore.bank1===target){
-      console.warn('GAME OVER');
-    }
+  const [overLay, setOverLay] = React.useState('')
+
+  function getRef(myref){
+    setOverLay((prev)=>prev=myref)
+    return myref
   }
 
   return (
     <div className="App">
-      <Overlay setTarget={setTarget}></Overlay>
-      <div className="center-flex main-layout">
+      <Overlay  getRef={getRef} setTarget={setTarget}></Overlay>
+      {!winScreen&&<span>
+        <WinMessage NewGame={NewGame} winScreen={setWinScreen} winner={winner}></WinMessage>
+      </span>}
+      <div className={`center-flex main-layout`}>
         <CenterInterAction
         NewGame={NewGame}
+        checkForWin={checkForWin}
           HoldOrSwitch={HoldOrSwitch}
           currentPlayer={currentPlayer}
           dice={dice}

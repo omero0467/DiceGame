@@ -57,6 +57,7 @@ function RollDice(
   HoldOrSwitch,
   setAccumulator,
   accumulator,
+  checkForWin
 
 ) {
 
@@ -81,14 +82,14 @@ function RollDice(
   if (dice[0] === 5 && dice[1] === 5) {
     HoldOrSwitch();
   }
-
+  checkForWin()
 }
 
 function CenterInterAction({
   HoldOrSwitch,
   currentPlayer,
   setCurrentScore,
-  setCurrentPlayer,
+  checkForWin,
   dice,
   setDice,
   NewGame,
@@ -119,6 +120,7 @@ function CenterInterAction({
             HoldOrSwitch,
             setAccumulator,
             accumulator,
+            checkForWin
           )
         }
       >
